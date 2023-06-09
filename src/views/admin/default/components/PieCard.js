@@ -26,17 +26,17 @@ export default function Conversion(props) {
         w='100%'
         mb='8px'>
         <Text color={textColor} fontSize='md' fontWeight='600' mt='4px'>
-          Your Pie Chart
+          Diagramme circulaire
         </Text>
         <Select
           fontSize='sm'
           variant='subtle'
-          defaultValue='monthly'
+          defaultValue='Mois'
           width='unset'
           fontWeight='700'>
-          <option value='daily'>Daily</option>
-          <option value='monthly'>Monthly</option>
-          <option value='yearly'>Yearly</option>
+          <option value='daily'>Jours</option>
+          <option value='monthly'>Mois</option>
+          <option value='yearly'>Années</option>
         </Select>
       </Flex>
 

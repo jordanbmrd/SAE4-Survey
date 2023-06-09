@@ -20,7 +20,7 @@ const routes = [
   {
     name: "Données Sondage",
     layout: "/admin",
-    path: "/data-tables",
+    path: "/data",
     icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
     component: DataTables,
   },
