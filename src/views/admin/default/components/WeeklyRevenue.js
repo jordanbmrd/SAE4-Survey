@@ -18,9 +18,8 @@ import {
 import { MdBarChart } from "react-icons/md";
 
 export default function WeeklyRevenue(props) {
-  const { ...rest } = props;
+  const { tableName, ...rest } = props;
 
-  // Chakra Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const iconColor = useColorModeValue("brand.500", "white");
   const bgButton = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
@@ -41,7 +40,7 @@ export default function WeeklyRevenue(props) {
           fontSize='xl'
           fontWeight='700'
           lineHeight='100%'>
-          Weekly Revenue
+          { tableName }
         </Text>
         <Button
           align='center'
