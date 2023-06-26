@@ -9,10 +9,9 @@ import MiniStatistics from "components/card/MiniStatistics";
 import IconBox from "components/icons/IconBox";
 import React, { useState, useEffect } from "react";
 import {
-  MdAttachMoney,
   MdBarChart,
 } from "react-icons/md";
-import { GiHealthDecrease, GiHealthIncrease } from "react-icons/gi";
+import { GiHealthDecrease, GiHealthIncrease, GiHealthNormal } from "react-icons/gi";
 import DailyTraffic from "views/admin/default/components/DailyTraffic";
 import PieCard from "views/admin/default/components/PieCard";
 import TotalSpent from "views/admin/default/components/TotalSpent";
@@ -110,7 +109,7 @@ export default function UserReports() {
               h='56px'
               bg={boxBg}
               icon={
-                <Icon w='32px' h='32px' as={MdAttachMoney} color={brandColor} />
+                <Icon w='32px' h='32px' as={GiHealthNormal} color={brandColor} />
               }
             />
           }
