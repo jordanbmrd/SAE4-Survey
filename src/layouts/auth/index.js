@@ -1,18 +1,11 @@
 import React, { useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import routes from "routes.js";
-
-// Chakra imports
 import { Box, useColorModeValue } from "@chakra-ui/react";
-
-// Layout components
 import { SidebarContext } from "contexts/SidebarContext";
 
-// Custom Chakra theme
 export default function Auth() {
-  // states and functions
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  // functions for changing the states from components
   const getRoute = () => {
     return window.location.pathname !== "/auth/full-screen-maps";
   };
@@ -63,8 +56,7 @@ export default function Auth() {
                 {getRoutes(routes)}
                 <Redirect
                   from='/auth'
-                  to='/auth/sign-in/default
-                  '
+                  to='/auth/sign-in/default'
                 />
               </Switch>
             </Box>

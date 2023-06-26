@@ -10,10 +10,12 @@ import {
 	useColorModeValue
 } from '@chakra-ui/react';
 import { SidebarResponsive } from 'components/sidebar/Sidebar';
+import { useUser } from 'contexts/UserContext';
 import PropTypes from 'prop-types';
 import React from 'react';
 import routes from 'routes.js';
 export default function HeaderLinks(props) {
+	const { user, setUser } = useUser();
 	const { secondary } = props;
 	let menuBg = useColorModeValue('white', 'navy.800');
 	const textColor = useColorModeValue('secondaryGray.900', 'white');
@@ -39,7 +41,7 @@ export default function HeaderLinks(props) {
 					<Avatar
 						_hover={{ cursor: 'pointer' }}
 						color="white"
-						name="Adela Parkson"
+						name={user.username}
 						bg="#11047A"
 						size="sm"
 						w="40px"
@@ -58,7 +60,7 @@ export default function HeaderLinks(props) {
 							fontSize="sm"
 							fontWeight="700"
 							color={textColor}>
-							👋&nbsp; Bonjour, Adela
+							👋&nbsp; Bonjour, { user.username }
 						</Text>
 					</Flex>
 					<Flex flexDirection="column" p="10px">
@@ -68,7 +70,7 @@ export default function HeaderLinks(props) {
 							color="red.400"
 							borderRadius="8px"
 							px="14px">
-							<Text fontSize="sm">Déconnexion</Text>
+							<Text fontSize="sm" onClick={() => setUser(null)}>Déconnexion</Text>
 						</MenuItem>
 					</Flex>
 				</MenuList>

@@ -8,19 +8,23 @@ import AdminLayout from 'layouts/admin';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from 'theme/theme';
 import { ThemeEditorProvider } from '@hypertheme-editor/chakra-ui';
+import { UserProvider, ProtectedRoute } from 'contexts/UserContext';
+
 
 ReactDOM.render(
 	<ChakraProvider theme={theme}>
 		<React.StrictMode>
 			<ThemeEditorProvider>
-				<HashRouter>
-					<Switch>
-						<Route path={`/survey`} component={SurveyLayout} />
-						<Route path={`/auth`} component={AuthLayout} />
-						<Route path={`/admin`} component={AdminLayout} />
-						<Redirect from='/' to='/survey' />
-					</Switch>
-				</HashRouter>
+				<UserProvider>
+					<HashRouter>
+						<Switch>
+							<Route path={`/survey`} component={SurveyLayout} />
+							<Route path={`/auth`} component={AuthLayout} />
+							<ProtectedRoute path={`/admin`} component={AdminLayout} />
+							<Redirect from='/' to='/survey' />
+						</Switch>
+					</HashRouter>
+				</UserProvider>
 			</ThemeEditorProvider>
 		</React.StrictMode>
 	</ChakraProvider>,

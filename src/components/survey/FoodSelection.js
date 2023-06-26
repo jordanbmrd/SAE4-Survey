@@ -73,7 +73,7 @@ const FoodSelection = ({ groups, constituentId }) => {
   const handleSubmission = async () => {
     if (selectedFoods.length >= 10) {
       try {
-        const url = `https://api.applicationsondage.deletesystem32.fr/answerSurvey?constituent_id=${constituentId || 1}`;
+        const url = `https://api.applicationsondage.deletesystem32.fr/answerSurvey?constituent_id=${constituentId}`;
         const response = await axios.post(url, selectedFoods);
         // Faites quelque chose avec la réponse si nécessaire
         console.log(response);
@@ -174,7 +174,7 @@ const FoodSelection = ({ groups, constituentId }) => {
   };
 
   return (
-    <Box sx={{ overflow: 'scroll', height: '70vh' }}>
+    <Box sx={{ overflowY: 'scroll', height: '70vh' }}>
       <Text fontSize="xl" fontWeight="bold" mb={4}>
         Sélectionnez 10 aliments :
       </Text>

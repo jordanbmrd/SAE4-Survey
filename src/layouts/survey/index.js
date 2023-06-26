@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Text, FormControl, FormLabel, Input, Button, Stack, Flex } from '@chakra-ui/react';
+import { Box, Checkbox, Text, FormControl, FormLabel, Input, Button, Stack, Flex } from '@chakra-ui/react';
 import FoodSelection from '../../components/survey/FoodSelection';
 import axios from 'axios';
 
@@ -71,8 +71,13 @@ const SurveyLayout = () => {
   const [pageIndex, setPageIndex] = useState(0);
   const [formData, setFormData] = useState({});
   const [constituentId, setConstituentId] = useState(-1);
+  const [isAccepted, setIsAccepted] = useState(false);
 
   useEffect(() => {
+    if (localStorage.getItem('id')) {
+      setConstituentId(localStorage.getItem('id'));
+    }
+
     let initialData = {};
     formFields.forEach(page => {
       page.forEach(field => {
@@ -95,7 +100,7 @@ const SurveyLayout = () => {
         <Box width={'50%'} p={10} pl={20} borderRadius={20} bg='#fff'>
             <Text fontSize={15} color="lightgray">Agglomération de Villefranche-sur-Saône</Text>
             <Text fontSize={35} fontWeight='bold' mb={5}>Sondage</Text>
-            { constituentId === -1 ? <Stack spacing={3}>
+            { constituentId === -1 && !localStorage.getItem('id') ? <Stack spacing={3}>
               {formFields[pageIndex].map((field) => (
                 <FormControl key={field.id} id={field.id}>
                   <FormLabel>{field.label}</FormLabel>
@@ -108,6 +113,13 @@ const SurveyLayout = () => {
                   />
                 </FormControl>
               ))}
+              {
+                pageIndex >= formFields.length - 1 &&
+                <Checkbox colorScheme="green" isChecked={isAccepted} onChange={(e) => setIsAccepted(e.target.checked)}>
+                  J'accepte que mes données soient stockées dans le but d'établir un score santé. 
+                  Vos données ne seront ni partagées, ni vendues.
+                </Checkbox>
+              }
               <Flex justifyContent="space-between">
                 {pageIndex > 0 && (
                   <Button 
@@ -130,12 +142,13 @@ const SurveyLayout = () => {
                     } else {
                       try {
                         const registerConstituent = async () => {
-                          //const url = `https://api.applicationsondage.deletesystem32.fr/registerConstituent`;
-                          //console.log({...formData, birth: formData.birth.replaceAll('-', '/')});
-                          //const response = await axios.post(url, {...formData, birth: formData.birth.replace('-', '/')});
-                          // Faites quelque chose avec la réponse si nécessaire
-                          //console.log(response);
-                          setConstituentId(1);
+                          const url = `https://api.applicationsondage.deletesystem32.fr/registerConstituent`;
+                          console.log({...formData, birth: formData.birth.replaceAll('-', '/')});
+                          const response = await axios.post(url, {...formData, birth: formData.birth.replaceAll('-', '/')});
+
+                          console.log(response.data.id);
+                          setConstituentId(response.data.id);
+                          localStorage.setItem('id', response.data.id);
                         }
                         registerConstituent();
                       } catch (error) {
@@ -148,7 +161,7 @@ const SurveyLayout = () => {
                 </Button>
               </Flex>
             </Stack>
-            : <FoodSelection groups={groups.data} /> }
+            : <FoodSelection groups={groups.data} constituentId={constituentId} /> }
         </Box>
     </Box>
   );
