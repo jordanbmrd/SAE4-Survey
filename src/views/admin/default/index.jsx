@@ -13,7 +13,6 @@ import {
 } from "react-icons/md";
 import { GiHealthDecrease, GiHealthIncrease, GiHealthNormal } from "react-icons/gi";
 import DailyTraffic from "views/admin/default/components/DailyTraffic";
-import PieCard from "views/admin/default/components/PieCard";
 import TotalSpent from "views/admin/default/components/TotalSpent";
 import ModernBarChart from "views/admin/default/components/ModernBarChart";
 import axios from 'axios';
@@ -147,12 +146,9 @@ export default function UserReports() {
         <MiniStatistics growth='+23%' name='Visiteurs (/mois)' value='54' />
       </SimpleGrid>
 
-      <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
         <TotalSpent />
-        <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>
-          <DailyTraffic />
-          <PieCard />
-        </SimpleGrid>
+        <DailyTraffic />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
         {isLoadingGroup && groupData.keys?.length > 0 && groupData.values?.length > 0 ? <Spinner /> : <ModernBarChart options={barChartOptions(groupData.keys)} data={barChartData(groupData.values)} tableName="Groupes d'aliments les plus consommés" /> }
