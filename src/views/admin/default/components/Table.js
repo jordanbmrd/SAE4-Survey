@@ -1,4 +1,3 @@
-// Chakra imports
 import {
   Box,
   Button,
@@ -8,17 +7,16 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import Card from "components/card/Card.js";
-// Custom components
 import BarChart from "components/charts/BarChart";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   barChartDataConsumption,
   barChartOptionsConsumption,
 } from "variables/charts";
 import { MdBarChart } from "react-icons/md";
 
-export default function WeeklyRevenue(props) {
-  const { tableName, ...rest } = props;
+export default function Table(props) {
+  const { tableName, data, ...rest } = props;
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const iconColor = useColorModeValue("brand.500", "white");
@@ -31,6 +29,9 @@ export default function WeeklyRevenue(props) {
     { bg: "secondaryGray.300" },
     { bg: "whiteAlpha.100" }
   );
+
+  useEffect(() => console.log(barChartDataConsumption), []);
+
   return (
     <Card align='center' direction='column' w='100%' {...rest}>
       <Flex align='center' w='100%' px='15px' py='10px'>
@@ -60,7 +61,7 @@ export default function WeeklyRevenue(props) {
 
       <Box h='240px' mt='auto'>
         <BarChart
-          chartData={barChartDataConsumption}
+          chartData={data}
           chartOptions={barChartOptionsConsumption}
         />
       </Box>

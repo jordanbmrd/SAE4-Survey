@@ -6,9 +6,6 @@ import { SidebarContext } from "contexts/SidebarContext";
 
 export default function Auth() {
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const getRoute = () => {
-    return window.location.pathname !== "/auth/full-screen-maps";
-  };
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.layout === "/auth") {
@@ -50,17 +47,15 @@ export default function Auth() {
           transitionDuration='.2s, .2s, .35s'
           transitionProperty='top, bottom, width'
           transitionTimingFunction='linear, linear, ease'>
-          {getRoute() ? (
-            <Box mx='auto' minH='100vh'>
-              <Switch>
-                {getRoutes(routes)}
-                <Redirect
-                  from='/auth'
-                  to='/auth/sign-in/default'
-                />
-              </Switch>
-            </Box>
-          ) : null}
+          <Box mx='auto' minH='100vh'>
+            <Switch>
+              {getRoutes(routes)}
+              <Redirect
+                from='/auth'
+                to='/auth/sign-in/default'
+              />
+            </Switch>
+          </Box>
         </Box>
       </SidebarContext.Provider>
     </Box>

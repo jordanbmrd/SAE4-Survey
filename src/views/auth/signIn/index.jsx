@@ -37,13 +37,19 @@ function SignIn() {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
+    if (localStorage.getItem('user')) {
+      setUser(JSON.parse(localStorage.getItem('user')));
+    }
+  }, []);
+
+  useEffect(() => {
     if (user) {
       history.push('/admin');
     }
-  }, [user, history]);
+  }, [user, history, localStorage.getItem('user')]);
 
   const login = () => {
-    /*const url = "https://api.applicationsondage.deletesystem32.fr/login";
+    const url = "https://api.applicationsondage.deletesystem32.fr/login";
     const body = {
       username,
       password,
@@ -51,14 +57,18 @@ function SignIn() {
 
     axios.post(url, body)
       .then(response => {
-        // Gérer la réponse ici, par exemple:
-        console.log(response);
+        const user = {
+          admin_id: response.data.admin_id,
+          username: response.data.username,
+          role: response.data.role,
+          created_at: response.data.created_at,
+        };
+        setUser(user);
+        localStorage.setItem('user', JSON.stringify(user));
       })
       .catch(error => {
-        // Gérer l'erreur ici, par exemple:
         console.error(error);
-      });*/
-    setUser({ id: 300007, username: 'Pierre' });
+      });
   }
   
   return (
@@ -200,25 +210,6 @@ function SignIn() {
                 Se connecter
               </Button>
             </FormControl>
-            <Flex
-              flexDirection='column'
-              justifyContent='center'
-              alignItems='start'
-              maxW='100%'
-              mt='0px'>
-              <Text color={textColorDetails} fontWeight='400' fontSize='14px'>
-                Pas encore de compte ?
-                <NavLink to='/auth/sign-up'>
-                  <Text
-                    color={textColorBrand}
-                    as='span'
-                    ms='5px'
-                    fontWeight='500'>
-                    Créer un compte 
-                  </Text>
-                </NavLink>
-              </Text>
-            </Flex>
           </Flex>
         </Flex>
       </Flex>

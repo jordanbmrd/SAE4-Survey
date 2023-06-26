@@ -8,8 +8,15 @@ import {
   Flex,
   Spacer,
   Collapse,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ScaleFade,
+  ModalContent,
+  ModalBody,
 } from '@chakra-ui/react';
 import axios from 'axios';
+import { CheckIcon } from '@chakra-ui/icons';
 
 const FoodSelection = ({ groups, constituentId }) => {
   const [selectedFoods, setSelectedFoods] = useState([]);
@@ -22,6 +29,8 @@ const FoodSelection = ({ groups, constituentId }) => {
   const [selectedGroupFoods, setSelectedGroupFoods] = useState({});
   const [selectedSubgroupFoods, setSelectedSubgroupFoods] = useState({});
   const [selectedSubsubgroupFoods, setSelectedSubsubgroupFoods] = useState({});
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => console.log("selectedFoods", selectedFoods), [selectedFoods]);
 
@@ -75,8 +84,11 @@ const FoodSelection = ({ groups, constituentId }) => {
       try {
         const url = `https://api.applicationsondage.deletesystem32.fr/answerSurvey?constituent_id=${constituentId}`;
         const response = await axios.post(url, selectedFoods);
-        // Faites quelque chose avec la réponse si nécessaire
+        
         console.log(response);
+        if (response.data.success && response.data.success === "Survey answer registered") {
+          onOpen();
+        }
       } catch (error) {
         console.error(error);
       }
@@ -293,6 +305,20 @@ const FoodSelection = ({ groups, constituentId }) => {
           Soumettre
         </Button>
       </Flex>
+
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ScaleFade initialScale={0.9} in={isOpen}>
+          <ModalContent bg="green.500" color="white" mx={3}py={8} textAlign="center">
+            <ModalBody>
+              <CheckIcon boxSize="48px" m="auto"/>
+              <Text fontSize="lg" fontWeight="bold" mt={5}>
+                Merci d'avoir répondu au sondage
+              </Text>
+            </ModalBody>
+          </ModalContent>
+        </ScaleFade>
+      </Modal>
     </Box>
   );  
 };

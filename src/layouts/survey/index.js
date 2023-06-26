@@ -74,8 +74,8 @@ const SurveyLayout = () => {
   const [isAccepted, setIsAccepted] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem('id')) {
-      setConstituentId(localStorage.getItem('id'));
+    if (localStorage.getItem('constituent_id')) {
+      setConstituentId(localStorage.getItem('constituent_id'));
     }
 
     let initialData = {};
@@ -100,7 +100,7 @@ const SurveyLayout = () => {
         <Box width={'50%'} p={10} pl={20} borderRadius={20} bg='#fff'>
             <Text fontSize={15} color="lightgray">Agglomération de Villefranche-sur-Saône</Text>
             <Text fontSize={35} fontWeight='bold' mb={5}>Sondage</Text>
-            { constituentId === -1 && !localStorage.getItem('id') ? <Stack spacing={3}>
+            { constituentId === -1 && !localStorage.getItem('constituent_id') ? <Stack spacing={3}>
               {formFields[pageIndex].map((field) => (
                 <FormControl key={field.id} id={field.id}>
                   <FormLabel>{field.label}</FormLabel>
@@ -148,7 +148,7 @@ const SurveyLayout = () => {
 
                           console.log(response.data.id);
                           setConstituentId(response.data.id);
-                          localStorage.setItem('id', response.data.id);
+                          localStorage.setItem('constituent_id', response.data.id);
                         }
                         registerConstituent();
                       } catch (error) {
