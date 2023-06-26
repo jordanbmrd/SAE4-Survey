@@ -105,7 +105,7 @@ export const barChartData = (data) => {
   return [
   {
     name: "Nombre",
-    data: data,
+    data: data || [],
   },
 ];
 };
@@ -132,7 +132,7 @@ export const barChartOptions = (categories) => {
     theme: "dark",
   },
   xaxis: {
-    categories: categories,
+    categories: categories || [],
     show: false,
     labels: {
       show: true,
