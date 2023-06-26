@@ -101,22 +101,17 @@ export const barChartOptionsDailyTraffic = {
   },
 };
 
-export const barChartDataConsumption = [
+export const barChartData = (data) => {
+  return [
   {
-    name: "PRODUCT A",
-    data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
-  },
-  {
-    name: "PRODUCT B",
-    data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
-  },
-  {
-    name: "PRODUCT C",
-    data: [400, 370, 330, 390, 320, 350, 360, 320, 380],
+    name: "Nombre",
+    data: data,
   },
 ];
+};
 
-export const barChartOptionsConsumption = {
+export const barChartOptions = (categories) => {
+  return {
   chart: {
     stacked: true,
     toolbar: {
@@ -137,7 +132,7 @@ export const barChartOptionsConsumption = {
     theme: "dark",
   },
   xaxis: {
-    categories: ["17", "18", "19", "20", "21", "22", "23", "24", "25"],
+    categories: categories,
     show: false,
     labels: {
       show: true,
@@ -187,12 +182,12 @@ export const barChartOptionsConsumption = {
   },
   fill: {
     type: "solid",
-    colors: ["#5E37FF", "#6AD2FF", "#E1E9F8"],
+    colors: ["#5E37FF"],
   },
   legend: {
     show: false,
   },
-  colors: ["#5E37FF", "#6AD2FF", "#E1E9F8"],
+  colors: ["#5E37FF"],
   dataLabels: {
     enabled: false,
   },
@@ -202,7 +197,7 @@ export const barChartOptionsConsumption = {
       columnWidth: "20px",
     },
   },
-};
+}};
 
 export const pieChartOptions = {
   labels: ["Your files", "System", "Empty"],

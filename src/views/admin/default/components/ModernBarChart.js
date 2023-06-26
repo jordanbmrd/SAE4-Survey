@@ -9,10 +9,6 @@ import {
 import Card from "components/card/Card.js";
 import BarChart from "components/charts/BarChart";
 import React, { useEffect } from "react";
-import {
-  barChartDataConsumption,
-  barChartOptionsConsumption,
-} from "variables/charts";
 import { MdBarChart } from "react-icons/md";
 
 export default function ModernBarChart(props) {
@@ -29,8 +25,6 @@ export default function ModernBarChart(props) {
     { bg: "secondaryGray.300" },
     { bg: "whiteAlpha.100" }
   );
-
-  useEffect(() => console.log(barChartDataConsumption), []);
 
   return (
     <Card align='center' direction='column' w='100%' {...rest}>

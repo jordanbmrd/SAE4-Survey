@@ -17,7 +17,10 @@ import PieCard from "views/admin/default/components/PieCard";
 import TotalSpent from "views/admin/default/components/TotalSpent";
 import ModernBarChart from "views/admin/default/components/ModernBarChart";
 import axios from 'axios';
-import { barChartOptionsConsumption } from "variables/charts";
+import {
+  barChartData,
+  barChartOptions,
+} from "variables/charts";
 
 export default function UserReports() {
   const brandColor = useColorModeValue("brand.500", "white");
@@ -30,7 +33,7 @@ export default function UserReports() {
   const [subgroupData, setSubgroupData] = useState({});
   const [subsubgroupData, setSubsubgroupData] = useState({});
 
-  useEffect(() => console.log(groupData), [groupData]);
+  useEffect(() => console.log(isLoadingGroup && !groupData.keys?.length && !groupData.values?.length ? "" : barChartOptions(groupData.keys)), [groupData]);
 
   const handleSearch = async () => {
     if (localStorage.getItem('groupData')) {
@@ -63,37 +66,43 @@ export default function UserReports() {
     axios.get(urls[0]).then(response => {
       setGroupData({
         keys: Object.keys(response.data.data),
-        values: Object.values(response.data.data)
+        values: Object.values(response.data.data).map(String)
       });
-      setIsLoadingGroup(false);
+
       localStorage.setItem('groupData', JSON.stringify({
         keys: Object.keys(response.data.data),
-        values: Object.values(response.data.data)
+        values: Object.values(response.data.data).map(String)
       }));
+
+      setIsLoadingGroup(false);
     }).catch(error => console.error(error));
 
     axios.get(urls[1]).then(response => {
       setSubgroupData({
         keys: Object.keys(response.data.data),
-        values: Object.values(response.data.data)
+        values: Object.values(response.data.data).map(String)
       });
-      setIsLoadingSubgroup(false);
+
       localStorage.setItem('subgroupData', JSON.stringify({
         keys: Object.keys(response.data.data),
-        values: Object.values(response.data.data)
+        values: Object.values(response.data.data).map(String)
       }));
+
+      setIsLoadingSubgroup(false);
     }).catch(error => console.error(error));
 
     axios.get(urls[2]).then(response => {
       setSubsubgroupData({
         keys: Object.keys(response.data.data),
-        values: Object.values(response.data.data)
+        values: Object.values(response.data.data).map(String)
       });
-      setIsLoadingSubsubgroup(false);
+      
       localStorage.setItem('subsubgroupData', JSON.stringify({
         keys: Object.keys(response.data.data),
-        values: Object.values(response.data.data)
+        values: Object.values(response.data.data).map(String)
       }));
+
+      setIsLoadingSubsubgroup(false);
     }).catch(error => console.error(error));
   };
 
@@ -174,23 +183,11 @@ export default function UserReports() {
         </SimpleGrid>
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
-        {isLoadingGroup ? <Spinner /> : <ModernBarChart options={{
-          xaxis: {
-            categories: groupData.keys
-          }
-        }} data={groupData.values} tableName="Groupes d'aliments les plus consommés" /> }
-        {isLoadingSubgroup ? <Spinner /> : <ModernBarChart options={{
-          xaxis: {
-            categories: subgroupData.keys
-          }
-        }} data={subgroupData.values} tableName="Sous-groupes d'aliments les plus consommés" /> }
+        {isLoadingGroup && groupData.keys?.length > 0 && groupData.values?.length > 0 ? <Spinner /> : <ModernBarChart options={barChartOptions(groupData.keys)} data={barChartData(groupData.values)} tableName="Groupes d'aliments les plus consommés" /> }
+        {isLoadingSubgroup && subgroupData.keys?.length > 0 && subgroupData.values?.length > 0 ? <Spinner /> : <ModernBarChart options={barChartOptions(subgroupData.keys)} data={barChartData(subgroupData.values)} tableName="Sous-groupes d'aliments les plus consommés" /> }
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
-        {isLoadingSubsubgroup ? <Spinner /> : <ModernBarChart options={{
-          xaxis: {
-            categories: subsubgroupData.keys
-          }
-        }} data={subsubgroupData.values} tableName="Sous-sous-groupes d'aliments les plus consommés" /> }
+        {isLoadingSubsubgroup && subsubgroupData.keys?.length > 0 && subsubgroupData.values?.length > 0 ? <Spinner /> : <ModernBarChart options={barChartOptions(subsubgroupData.keys)} data={barChartData(subsubgroupData.values)} tableName="Sous-sous-groupes d'aliments les plus consommés" /> }
       </SimpleGrid>
     </Box>
   );
