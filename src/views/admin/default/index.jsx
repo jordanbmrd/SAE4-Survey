@@ -15,8 +15,9 @@ import {
 import DailyTraffic from "views/admin/default/components/DailyTraffic";
 import PieCard from "views/admin/default/components/PieCard";
 import TotalSpent from "views/admin/default/components/TotalSpent";
-import Table from "views/admin/default/components/Table";
+import ModernBarChart from "views/admin/default/components/ModernBarChart";
 import axios from 'axios';
+import { barChartOptionsConsumption } from "variables/charts";
 
 export default function UserReports() {
   const brandColor = useColorModeValue("brand.500", "white");
@@ -30,10 +31,23 @@ export default function UserReports() {
   const [subsubgroupData, setSubsubgroupData] = useState({});
 
   const handleSearch = async () => {
+    if (localStorage.getItem('groupData')) {
+      setGroupData(JSON.parse(localStorage.getItem('groupData')));
+      return;
+    }
+    if (localStorage.getItem('subgroupData')) {
+      setSubgroupData(JSON.parse(localStorage.getItem('subgroupData')));
+      return;
+    }
+    if (localStorage.getItem('subsubgroupData')) {
+      setSubsubgroupData(JSON.parse(localStorage.getItem('subsubgroupData')));
+      return;
+    }
+
     const apiKey = "c18920b110484119b76b039e1506ffc1";
     const resultLength = 10;
     const ageMin = 20;
-    const ageMax = 100;
+    const ageMax = 23;
     const urls = [
       `https://api.applicationsondage.deletesystem32.fr/getMostConsumedGroupsByAgeGroup?age_min=${ageMin}&age_max=${ageMax}&result_length=${resultLength}&api_key=${apiKey}`,
       `https://api.applicationsondage.deletesystem32.fr/getMostConsumedSubgroupsByAgeGroup?age_min=${ageMin}&age_max=${ageMax}&result_length=${resultLength}&api_key=${apiKey}`,
@@ -47,16 +61,19 @@ export default function UserReports() {
     axios.get(urls[0]).then(response => {
       setGroupData(response.data.data);
       setIsLoadingGroup(false);
+      localStorage.setItem('groupData', JSON.stringify(response.data.data));
     }).catch(error => console.error(error));
 
     axios.get(urls[1]).then(response => {
       setSubgroupData(response.data.data);
       setIsLoadingSubgroup(false);
+      localStorage.setItem('subgroupData', JSON.stringify(response.data.data));
     }).catch(error => console.error(error));
 
     axios.get(urls[2]).then(response => {
       setSubsubgroupData(response.data.data);
       setIsLoadingSubsubgroup(false);
+      localStorage.setItem('subsubgroupData', JSON.stringify(response.data.data));
     }).catch(error => console.error(error));
   };
 
@@ -66,7 +83,7 @@ export default function UserReports() {
 
   useEffect(() => {
     handleSearch();
-  });
+  }, []);
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -141,11 +158,11 @@ export default function UserReports() {
         </SimpleGrid>
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
-        {isLoadingGroup ? <Spinner /> : <Table data={transformData(groupData)} tableName="Groupes d'aliments les plus consommés" /> }
-        {isLoadingSubgroup ? <Spinner /> : <Table data={transformData(subgroupData)} tableName="Sous-groupes d'aliments les plus consommés" /> }
+        {isLoadingGroup ? <Spinner /> : <ModernBarChart options={barChartOptionsConsumption} data={transformData(groupData)} tableName="Groupes d'aliments les plus consommés" /> }
+        {isLoadingSubgroup ? <Spinner /> : <ModernBarChart options={barChartOptionsConsumption} data={transformData(subgroupData)} tableName="Sous-groupes d'aliments les plus consommés" /> }
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
-        {isLoadingSubsubgroup ? <Spinner /> : <Table data={transformData(subsubgroupData)} tableName="Sous-sous-groupes d'aliments les plus consommés" /> }
+        {isLoadingSubsubgroup ? <Spinner /> : <ModernBarChart options={barChartOptionsConsumption} data={transformData(subsubgroupData)} tableName="Sous-sous-groupes d'aliments les plus consommés" /> }
       </SimpleGrid>
     </Box>
   );

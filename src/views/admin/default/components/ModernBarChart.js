@@ -15,8 +15,8 @@ import {
 } from "variables/charts";
 import { MdBarChart } from "react-icons/md";
 
-export default function Table(props) {
-  const { tableName, data, ...rest } = props;
+export default function ModernBarChart(props) {
+  const { tableName, options, data, ...rest } = props;
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const iconColor = useColorModeValue("brand.500", "white");
@@ -62,7 +62,7 @@ export default function Table(props) {
       <Box h='240px' mt='auto'>
         <BarChart
           chartData={data}
-          chartOptions={barChartOptionsConsumption}
+          chartOptions={options}
         />
       </Box>
     </Card>

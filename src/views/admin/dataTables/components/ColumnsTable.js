@@ -8,6 +8,7 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  Box,
 } from "@chakra-ui/react";
 import React, { useMemo } from "react";
 import {
@@ -17,6 +18,7 @@ import {
   useTable,
 } from "react-table";
 import Card from "components/card/Card";
+
 export default function ColumnsTable(props) {
   const { columnsData, tableData, tableName } = props;
 
@@ -45,6 +47,7 @@ export default function ColumnsTable(props) {
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
+
   return (
     <Card
       direction='column'
@@ -97,11 +100,19 @@ export default function ColumnsTable(props) {
                         </Text>
                       </Flex>
                     );
-                  } else if (cell.column.Header === "Nombre") {
+                  } else if (["Nombre", "ID", "Admin ID", "Clé API", "Date de création"].includes(cell.column.Header)) {
                     data = (
                       <Text color={textColor} fontSize='sm' fontWeight='700'>
-                        {cell.value}
+                        {cell.value ?? "Aucun"}
                       </Text>
+                    );
+                  } else if (cell.column.Header === "Active") {
+                    data = (
+                      <Box sx={{ backgroundColor: cell.value === 1 ? 'green' : 'red', px: 3, p: 1, borderRadius: 4, width: 35 }}>
+                        <Text color={'white'} fontSize='sm' fontWeight='700'>
+                          {cell.value === 1 ? "Oui" : "Non"}
+                        </Text>
+                      </Box>
                     );
                   }
                   return (

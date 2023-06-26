@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
 import ColumnsTable from "views/admin/dataTables/components/ColumnsTable";
-import { columnsDataColumns } from "views/admin/dataTables/variables/columnsData";
 import axios from "axios";
+
+const columnsDataColumns = [
+  {
+    Header: "Nom",
+    accessor: "nom",
+  },
+  {
+    Header: "Nombre",
+    accessor: "amount",
+  },
+];
 
 export default function Settings() {
   const [ageMin, setAgeMin] = useState("");
@@ -14,7 +24,7 @@ export default function Settings() {
   const [subgroupData, setSubgroupData] = useState({});
   const [subsubgroupData, setSubsubgroupData] = useState({});
 
-  useEffect(() => console.log(groupData, subgroupData, subsubgroupData), [groupData, subgroupData, subsubgroupData]);
+  useEffect(() => console.log(transformData(groupData), columnsDataColumns), [groupData, subgroupData, subsubgroupData]);
 
   const handleSearch = async () => {
     const apiKey = "c18920b110484119b76b039e1506ffc1";

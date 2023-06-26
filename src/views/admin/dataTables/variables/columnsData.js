@@ -28,17 +28,6 @@ export const columnsDataCheck = [
   },
 ];
 
-export const columnsDataColumns = [
-  {
-    Header: "Nom",
-    accessor: "nom",
-  },
-  {
-    Header: "Nombre",
-    accessor: "amount",
-  },
-];
-
 export const columnsDataComplex = [
   {
     Header: "Nom",
