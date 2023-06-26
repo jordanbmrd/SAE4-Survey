@@ -36,19 +36,6 @@ export default function UserReports() {
   useEffect(() => console.log(isLoadingGroup && !groupData.keys?.length && !groupData.values?.length ? "" : barChartOptions(groupData.keys)), [groupData]);
 
   const handleSearch = async () => {
-    if (localStorage.getItem('groupData')) {
-      setGroupData(JSON.parse(localStorage.getItem('groupData')));
-      return;
-    }
-    if (localStorage.getItem('subgroupData')) {
-      setSubgroupData(JSON.parse(localStorage.getItem('subgroupData')));
-      return;
-    }
-    if (localStorage.getItem('subsubgroupData')) {
-      setSubsubgroupData(JSON.parse(localStorage.getItem('subsubgroupData')));
-      return;
-    }
-
     const apiKey = "c18920b110484119b76b039e1506ffc1";
     const resultLength = 10;
     const ageMin = 20;
@@ -69,11 +56,6 @@ export default function UserReports() {
         values: Object.values(response.data.data).map(String)
       });
 
-      localStorage.setItem('groupData', JSON.stringify({
-        keys: Object.keys(response.data.data),
-        values: Object.values(response.data.data).map(String)
-      }));
-
       setIsLoadingGroup(false);
     }).catch(error => console.error(error));
 
@@ -83,11 +65,6 @@ export default function UserReports() {
         values: Object.values(response.data.data).map(String)
       });
 
-      localStorage.setItem('subgroupData', JSON.stringify({
-        keys: Object.keys(response.data.data),
-        values: Object.values(response.data.data).map(String)
-      }));
-
       setIsLoadingSubgroup(false);
     }).catch(error => console.error(error));
 
@@ -96,11 +73,6 @@ export default function UserReports() {
         keys: Object.keys(response.data.data),
         values: Object.values(response.data.data).map(String)
       });
-      
-      localStorage.setItem('subsubgroupData', JSON.stringify({
-        keys: Object.keys(response.data.data),
-        values: Object.values(response.data.data).map(String)
-      }));
 
       setIsLoadingSubsubgroup(false);
     }).catch(error => console.error(error));
