@@ -173,21 +173,6 @@ function SignIn() {
                 </InputRightElement>
               </InputGroup>
               <Flex justifyContent='space-between' align='center' mb='24px'>
-                <FormControl display='flex' alignItems='center'>
-                  <Checkbox
-                    id='remember-login'
-                    colorScheme='brandScheme'
-                    me='10px'
-                  />
-                  <FormLabel
-                    htmlFor='remember-login'
-                    mb='0'
-                    fontWeight='normal'
-                    color={textColor}
-                    fontSize='sm'>
-                    Se souvenir de moi
-                  </FormLabel>
-                </FormControl>
                 <NavLink to='/auth/forgot-password'>
                   <Text
                     color={textColorBrand}

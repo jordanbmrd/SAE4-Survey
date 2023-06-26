@@ -70,7 +70,10 @@ export default function HeaderLinks(props) {
 							color="red.400"
 							borderRadius="8px"
 							px="14px">
-							<Text fontSize="sm" onClick={() => setUser(null)}>Déconnexion</Text>
+							<Text fontSize="sm" onClick={() => {
+								setUser(null);
+								localStorage.setItem('user', null);
+							}}>Déconnexion</Text>
 						</MenuItem>
 					</Flex>
 				</MenuList>

@@ -12,6 +12,7 @@ import {
   MdAttachMoney,
   MdBarChart,
 } from "react-icons/md";
+import { GiHealthDecrease, GiHealthIncrease } from "react-icons/gi";
 import DailyTraffic from "views/admin/default/components/DailyTraffic";
 import PieCard from "views/admin/default/components/PieCard";
 import TotalSpent from "views/admin/default/components/TotalSpent";
@@ -123,7 +124,7 @@ export default function UserReports() {
               h='56px'
               bg={boxBg}
               icon={
-                <Icon w='32px' h='32px' as={MdAttachMoney} color={brandColor} />
+                <Icon w='32px' h='32px' as={GiHealthDecrease} color={brandColor} />
               }
             />
           }
@@ -137,7 +138,7 @@ export default function UserReports() {
               h='56px'
               bg={boxBg}
               icon={
-                <Icon w='32px' h='32px' as={MdAttachMoney} color={brandColor} />
+                <Icon w='32px' h='32px' as={GiHealthIncrease} color={brandColor} />
               }
             />
           }
