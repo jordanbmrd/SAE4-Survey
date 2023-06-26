@@ -40,13 +40,13 @@ function Register() {
   const [APIKey, setAPIKey] = useState("");
 
   useEffect(() => {
-    if (user) {
-      history.push('/admin');
+    if (!user) {
+      history.push('/auth/sign-in');
     }
   }, [user, history]);
 
   const createAccount = () => {
-    const url = "https://api.applicationsondage.deletesystem32.fr/createAdminAccount";
+    const url = "https://api.applicationsondage.deletesystem32.fr/createAdminAccount?api_key=" + APIKey;
     const body = {
       username,
       password,
@@ -56,7 +56,7 @@ function Register() {
     axios.post(url, body)
       .then(() => {
         history.push('/admin');
-        toast.success("Le compte a été créé avec succès !");
+        alert("Le compte a été créé avec succès");
       })
       .catch(error => {
         console.error(error);
