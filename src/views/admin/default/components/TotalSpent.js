@@ -17,7 +17,7 @@ import {
   lineChartOptionsTotalSpent,
 } from "variables/charts";
 
-export default function TotalSpent(props) {
+export default function ModernLineCard(props) {
   const { ...rest } = props;
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
