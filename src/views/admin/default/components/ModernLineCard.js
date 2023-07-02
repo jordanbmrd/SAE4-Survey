@@ -13,8 +13,8 @@ import { IoCheckmarkCircle } from "react-icons/io5";
 import { MdOutlineCalendarToday } from "react-icons/md";
 import { RiArrowUpSFill } from "react-icons/ri";
 import {
-  lineChartDataTotalSpent,
-  lineChartOptionsTotalSpent,
+  lineChartDataAnswers,
+  lineChartOptionsAnswers,
 } from "variables/charts";
 
 export default function ModernLineCard(props) {
@@ -84,8 +84,8 @@ export default function ModernLineCard(props) {
         </Flex>
         <Box minH='260px' minW='75%' mt='auto'>
           <LineChart
-            chartData={lineChartDataTotalSpent}
-            chartOptions={lineChartOptionsTotalSpent}
+            chartData={lineChartDataAnswers}
+            chartOptions={lineChartOptionsAnswers}
           />
         </Box>
       </Flex>

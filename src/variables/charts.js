@@ -1,11 +1,11 @@
-export const barChartDataDailyTraffic = [
+export const barChartDataDailyVisitors = [
   {
-    name: "Daily Traffic",
+    name: "Daily Visitors",
     data: [20, 30, 40, 20, 45, 50, 30],
   },
 ];
 
-export const barChartOptionsDailyTraffic = {
+export const barChartOptionsDailyVisitors = {
   chart: {
     toolbar: {
       show: false,
@@ -199,59 +199,18 @@ export const barChartOptions = (categories) => {
   },
 }};
 
-export const pieChartOptions = {
-  labels: ["Your files", "System", "Empty"],
-  colors: ["#4318FF", "#6AD2FF", "#EFF4FB"],
-  chart: {
-    width: "50px",
-  },
-  states: {
-    hover: {
-      filter: {
-        type: "none",
-      },
-    },
-  },
-  legend: {
-    show: false,
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  hover: { mode: null },
-  plotOptions: {
-    donut: {
-      expandOnClick: false,
-      donut: {
-        labels: {
-          show: false,
-        },
-      },
-    },
-  },
-  fill: {
-    colors: ["#4318FF", "#6AD2FF", "#EFF4FB"],
-  },
-  tooltip: {
-    enabled: true,
-    theme: "dark",
-  },
-};
-
-export const pieChartData = [63, 25, 12];
-
-export const lineChartDataTotalSpent = [
+export const lineChartDataAnswers = [
   {
-    name: "Revenue",
+    name: "Visiteurs de type A",
     data: [50, 64, 48, 66, 49, 68],
   },
   {
-    name: "Profit",
+    name: "Visiteurs de type B",
     data: [30, 40, 24, 46, 20, 46],
   },
 ];
 
-export const lineChartOptionsTotalSpent = {
+export const lineChartOptionsAnswers = {
   chart: {
     toolbar: {
       show: false,

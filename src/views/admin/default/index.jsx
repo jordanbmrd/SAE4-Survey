@@ -12,8 +12,8 @@ import {
   MdBarChart,
 } from "react-icons/md";
 import { GiHealthDecrease, GiHealthIncrease, GiHealthNormal } from "react-icons/gi";
-import DailyTraffic from "views/admin/default/components/DailyTraffic";
-import TotalSpent from "views/admin/default/components/TotalSpent";
+import DailyVisitors from "views/admin/default/components/DailyVisitors";
+import ModernLineCard from "views/admin/default/components/ModernLineCard";
 import ModernBarChart from "views/admin/default/components/ModernBarChart";
 import axios from 'axios';
 import {
@@ -147,8 +147,8 @@ export default function UserReports() {
       </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
-        <TotalSpent />
-        <DailyTraffic />
+        <ModernLineCard />
+        <DailyVisitors />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
         {isLoadingGroup && groupData.keys?.length > 0 && groupData.values?.length > 0 ? <Spinner /> : <ModernBarChart options={barChartOptions(groupData.keys)} data={barChartData(groupData.values)} tableName="Groupes d'aliments les plus consommés" /> }
