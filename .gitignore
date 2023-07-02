@@ -21,4 +21,8 @@ build
 .env.test.local
 .env.production.local
 
+.gitignore
+.gitattributes
+.vscode
+
 npm-debug.log*
